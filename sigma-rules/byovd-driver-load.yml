@@ -1,0 +1,47 @@
+title: BYOVD - Suspicious Driver Load
+id: mh-byovd-001
+status: experimental
+description: |
+  Detects loading of drivers commonly abused in Bring Your Own Vulnerable 
+  Driver (BYOVD) attacks. These drivers are signed but contain vulnerabilities 
+  allowing kernel-level code execution. Detects based on known malicious 
+  driver names and paths outside System32.
+author: Morteza Hosseinabadi
+date: 2026-06-21
+tags:
+    - attack.privilege_escalation
+    - attack.persistence
+    - attack.t1068
+    - attack.t1543.003
+    - attack.t1562.001
+references:
+    - https://www.cisa.gov/known-exploited-vulnerabilities-catalog
+    - https://learn.microsoft.com/en-us/windows/security/threat-protection/windows-defender-application-control/microsoft-recommended-driver-block-rules
+logsource:
+    product: windows
+    category: driver_load
+detection:
+    selection_known_names:
+        ImageLoaded|endswith:
+            - '\WinRing0x64.sys'
+            - '\RTCore64.sys'
+            - '\Capcom.sys'
+            - '\Amifldrv64.sys'
+            - '\AsrOmgDrv.sys'
+            - '\GVCIDrv64.sys'
+            - '\dbutil_2_3.sys'
+            - '\zamguard64.sys'
+    selection_unsigned:
+        SignatureStatus: 'Unsigned'
+    selection_expired:
+        SignatureStatus: 'Expired'
+    selection_path_anomaly:
+        ImageLoaded|contains:
+            - '\Temp\'
+            - '\Downloads\'
+            - '\AppData\'
+    condition: selection_known_names or (selection_unsigned and selection_path_anomaly) or (selection_expired and selection_path_anomaly)
+falsepositives:
+    - Legacy drivers from hardware vendors
+    - Custom drivers used by internal IT (should be documented)
+level: high
