@@ -62,6 +62,30 @@ Attackers load signed-but-vulnerable drivers to gain kernel access. EDRs miss th
 
 
 
+\---
+
+
+
+Sigma Rules
+
+
+
+Custom detection rules mapped to MITRE ATT\&CK.
+
+
+
+→ \[View Rules](sigma-rules/)
+
+
+
+| Rule | MITRE | Description |
+
+|------|-------|-------------|
+
+| \[BYOVD Driver Load](sigma-rules/byovd-driver-load.yml) | T1068, T1543.003, T1562.001 | Detects loading of known vulnerable drivers |
+
+
+
 
 
 More tools and detection content are in development.
