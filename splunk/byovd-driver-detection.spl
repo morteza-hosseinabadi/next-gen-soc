@@ -1,0 +1,21 @@
+index=windows EventCode=7045 "kernel mode driver"
+| rex field=Message "Service Name:\s+(?<svc_name>.+?)\s+Service File Name:\s+(?<svc_path>.+)"
+| eval driver_lower = lower(svc_name)
+| eval path_lower = lower(svc_path)
+| eval malicious_name = if(
+    match(driver_lower, "(winring0|rtcore64|capcom|amifldrv64|asromgdrv|gvcidrv64|dbutil|zamguard64)"), 
+    1, 0)
+| eval non_standard = if(
+    NOT match(path_lower, "(\\\\windows\\\\system32|\\\\windows\\\\syswow64|\\\\program files|systemroot|%systemroot%)"), 
+    1, 0)
+| where malicious_name=1 OR non_standard=1
+| eval severity = if(malicious_name=1, "critical", "high")
+| eval mitre = if(malicious_name=1, "T1068,T1543.003", "T1543.003")
+| stats count min(_time) as firstTime max(_time) as lastTime 
+    values(svc_path) as ServicePath
+    values(severity) as Severity
+    values(mitre) as MITRE
+    by ComputerName, svc_name
+| rename ComputerName as dest, svc_name as DriverName
+| `security_content_ctime(firstTime)`
+| `security_content_ctime(lastTime)`
