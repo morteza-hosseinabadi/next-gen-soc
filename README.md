@@ -42,9 +42,25 @@ Projects
 
 
 
-Driver Threat Hunter (Coming Soon)
+\### Driver Threat Hunter
 
-Detect Bring Your Own Vulnerable Driver (BYOVD) attacks. A scanner and analyzer that identifies signed-but-vulnerable drivers loaded in Windows — the kind EDRs often miss.
+
+
+Detect BYOVD (Bring Your Own Vulnerable Driver) attacks.
+
+
+
+Attackers load signed-but-vulnerable drivers to gain kernel access. EDRs miss them because they're signed. This scanner-analyzer duo enumerates all loaded Windows drivers, checks signatures, and flags suspicious ones.
+
+
+
+\*\*MITRE:\*\* T1068, T1543.003, T1562.001
+
+
+
+→ \[View Project](tools/driver-threat-hunter/)
+
+
 
 
 
