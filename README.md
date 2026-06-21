@@ -1,4 +1,4 @@
-Next-Gen SOC
+# **Next-Gen SOC**
 
 
 
@@ -14,7 +14,7 @@ This repository is a collection of tools, detection rules, and automation workfl
 
 
 
-What You'll Find Here
+**What You'll Find Here**
 
 
 
@@ -25,6 +25,8 @@ What You'll Find Here
 | `tools/` | Standalone security tools for threat detection and analysis |
 
 | `sigma-rules/` | Custom Sigma detection rules mapped to MITRE ATT\&CK |
+
+| `splunk/` | Splunk SPL queries |
 
 | `playbooks/` | SOC automation playbooks and integration scripts |
 
@@ -38,51 +40,15 @@ What You'll Find Here
 
 
 
-Projects
+**Featured Project**
 
 
 
-\### Driver Threat Hunter
+\[Driver Threat Hunter](tools/driver-threat-hunter/) — Detect BYOVD attacks. CMD-based scanner + Python analyzer + Sigma rule + Splunk SPL.
 
 
 
-Detect BYOVD (Bring Your Own Vulnerable Driver) attacks.
-
-
-
-Attackers load signed-but-vulnerable drivers to gain kernel access. EDRs miss them because they're signed. This scanner-analyzer duo enumerates all loaded Windows drivers, checks signatures, and flags suspicious ones.
-
-
-
-\*\*MITRE:\*\* T1068, T1543.003, T1562.001
-
-
-
-→ \[View Project](tools/driver-threat-hunter/)
-
-
-
-\---
-
-
-
-Sigma Rules
-
-
-
-Custom detection rules mapped to MITRE ATT\&CK.
-
-
-
-→ \[View Rules](sigma-rules/)
-
-
-
-| Rule | MITRE | Description |
-
-|------|-------|-------------|
-
-| \[BYOVD Driver Load](sigma-rules/byovd-driver-load.yml) | T1068, T1543.003, T1562.001 | Detects loading of known vulnerable drivers |
+MITRE: T1068 · T1543.003 · T1562.001
 
 
 
@@ -94,7 +60,7 @@ More tools and detection content are in development.
 
 \---
 
-Author
+**Author**
 
 
 
